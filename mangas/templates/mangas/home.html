@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Home
+{% endblock %}
+
+{% block content %}
+
+<h1>Latest Mangas</h1>
+
+<div class="row">
+
+    {% for manga in mangas %}
+
+    <div class="col-md-3 mb-4">
+        <div class="card">
+
+            <img
+                src="{{ manga.cover.url }}"
+                class="card-img-top"
+            >
+
+            <div class="card-body">
+
+                <h5>{{ manga.title }}</h5>
+
+                <a href="{{ manga.get_absolute_url }}" class="btn btn-primary">
+                    Read
+                </a>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    {% endfor %}
+
+</div>
+
+{% endblock %}

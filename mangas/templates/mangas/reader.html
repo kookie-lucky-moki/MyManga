@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<h2>
+    {{ chapter.manga.title }}
+    - Chapter {{ chapter.number }}
+</h2>
+
+<div class="text-center">
+
+    {% for page in chapter.pages.all %}
+
+        <img
+            src="{{ page.image.url }}"
+            class="img-fluid mb-3"
+        >
+
+    {% endfor %}
+
+</div>
+
+{% endblock %}

@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<h1>Search Results</h1>
+
+{% for manga in mangas %}
+
+    <a href="{{ manga.get_absolute_url }}">
+        {{ manga.title }}
+    </a>
+
+{% empty %}
+
+    <p>No results.</p>
+
+{% endfor %}
+
+{% endblock %}
