@@ -1,21 +1,24 @@
 from django.db import models
 from django.urls import reverse
-# Create your models here.
 
-# Model of the categories of mnagas.
+# Modelo para las categorías de mangas
 class Category(models.Model):
     title = models.CharField(max_length=250)
 
     class Meta:
         ordering = ('title',)
-        verbose_name_plural = 'Categories'
+        verbose_name_plural = 'Categorías'
 
     def __str__(self):
         return self.title
 
-# Model to create/publicate Mangas in the admin site.
+
+# Modelo para crear/publicar mangas en el panel de administración
 class Manga(models.Model):
-    category = models.ManyToManyField(Category, related_name='mangas')
+    category = models.ManyToManyField(
+        Category,
+        related_name='mangas'
+    )
 
     title = models.CharField(max_length=250)
     author = models.CharField(max_length=250)
@@ -35,7 +38,8 @@ class Manga(models.Model):
     def get_absolute_url(self):
         return reverse('manga_detail', args=[self.slug])
 
-# Model to add Chapters in the mangas
+
+# Modelo para agregar capítulos a los mangas
 class Chapter(models.Model):
     manga = models.ForeignKey(
         Manga,
@@ -49,9 +53,10 @@ class Chapter(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
-        return f'{self.manga.title} - Chapter {self.number}'
+        return f'{self.manga.title} - Capítulo {self.number}'
 
-# Model to show the pages of the mangas
+
+# Modelo para mostrar las páginas de los mangas
 class Page(models.Model):
     chapter = models.ForeignKey(
         Chapter,
@@ -67,4 +72,4 @@ class Page(models.Model):
         ordering = ['page_number']
 
     def __str__(self):
-        return f'Page {self.page_number}'
+        return f'Página {self.page_number}'

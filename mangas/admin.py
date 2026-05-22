@@ -2,16 +2,19 @@ from django.contrib import admin
 
 from .models import Category, Manga, Chapter, Page
 
+
 # CATEGORY
 @admin.register(Category)
 class CategoryAdmin(admin.ModelAdmin):
     list_display = ('id', 'title')
     search_fields = ('title',)
 
+
 # PAGE INLINE
 class PageInline(admin.TabularInline):
     model = Page
     extra = 1
+
 
 # CHAPTER ADMIN
 @admin.register(Chapter)
@@ -28,6 +31,7 @@ class ChapterAdmin(admin.ModelAdmin):
     search_fields = ('title',)
 
     inlines = [PageInline]
+
 
 # MANGA ADMIN
 @admin.register(Manga)
@@ -54,6 +58,7 @@ class MangaAdmin(admin.ModelAdmin):
     )
 
     filter_horizontal = ('category',)
+
 
 # PAGE ADMIN
 @admin.register(Page)
