@@ -37,13 +37,19 @@ def manga_detail(request, slug):
         'manga': manga
     })
 
+def reader(request, slug, chapter_id):
+    manga = get_object_or_404(
+        Manga,
+        slug=slug
+    )
 
-def reader(request, chapter_id):
     chapter = get_object_or_404(
         Chapter,
-        id=chapter_id
+        id=chapter_id,
+        manga=manga
     )
 
     return render(request, 'mangas/reader.html', {
+        'manga': manga,
         'chapter': chapter
     })
