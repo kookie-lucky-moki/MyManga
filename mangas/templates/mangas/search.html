@@ -1,19 +1,64 @@
 {% extends 'mangas/base.html' %}
 
 {% block content %}
+<div class="container my-4">
 
-<h1>Buscar resultados</h1>
+    <div class="d-flex justify-content-between align-items-center mb-4 border-bottom pb-2">
+        <h1 class="h2 text-dark">Resultados de Búsqueda</h1>
+        <span class="badge bg-secondary fs-6">{{ mangas|length }} encontrados</span>
+    </div>
 
-{% for manga in mangas %}
+    <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4">
+        {% for manga in mangas %}
+            <div class="col">
+                <div class="card h-100 shadow-sm hover-shadow transition">
 
-    <a href="{{ manga.get_absolute_url }}">
-        {{ manga.title }}
-    </a>
+                    {% if manga.cover %}
+                        <img src="{{ manga.cover.url }}" class="card-img-top">
+                    {% else %}
 
-{% empty %}
+                        <div class="bg-light text-muted d-flex align-items-center justify-content-center card-img-top" style="height: 300px;">
+                            <i class="bi bi-book fs-1">Sin Portada</i>
+                        </div>
+                    {% endif %}
 
-    <p>Sin resultados.</p>
+                    <div class="card-body">
 
-{% endfor %}
+                        <h5>{{ manga.title }}</h5>
 
+                        {% if manga.author %}
+                            <p class="card-text text-muted small mb-3">Por: {{ manga.author }}</p>
+                        {% endif %}
+
+                        <a href="{{ manga.get_absolute_url }}" class="btn btn-primary">
+                            Leer
+                        </a>
+
+                    </div>
+                </div>
+            </div>
+        {% empty %}
+
+            <div class="col-100 text-center py-5 w-100">
+                <div class="text-muted mb-3">
+
+                    <span style="font-size: 3rem;">¿ ?</span>
+                </div>
+                <h3 class="h5 text-secondary">No encontramos lo que buscas</h3>
+                <p class="text-muted">Intenta revisar la ortografía o buscar con palabras más generales.</p>
+                <a href="/" class="btn btn-primary btn-sm mt-2">Volver al Inicio</a>
+            </div>
+        {% endfor %}
+    </div>
+</div>
+
+<style>
+    .hover-shadow:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 .5rem 1rem rgba(0,0,0,.15)!important;
+    }
+    .transition {
+        transition: all 0.3s ease-in-out;
+    }
+</style>
 {% endblock %}

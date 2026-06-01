@@ -1,5 +1,7 @@
+import uuid
 from django.db import models
 from django.urls import reverse
+from django.contrib.auth.models import AbstractUser
 
 # Modelo para las categorías de mangas
 class Category(models.Model):
@@ -72,3 +74,27 @@ class Page(models.Model):
 
     def __str__(self):
         return f'Página {self.page_number}'
+    
+# Modelo para los usuarios registrados
+class User(AbstractUser):
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    is_seller = models.BooleanField(default=False)
+
+    groups = models.ManyToManyField(
+        'auth.Group',
+        related_name='mangas_user_set',
+        blank=True,
+        help_text='The groups this user belong to.',
+        verbose_name='groups',
+    )
+
+    user_permissions = models.ManyToManyField(
+        'auth.Permission',
+        related_name='mangas_user_permissions_set',
+        blank=True,
+        help_text='Specific permissions for this user.',
+        verbose_name='user permissions',
+    )
+
+    def __str__(self):
+        return self.username

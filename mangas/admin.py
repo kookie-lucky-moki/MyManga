@@ -1,7 +1,19 @@
 from django.contrib import admin
+from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
+from .models import Category, Manga, Chapter, Page, User
 
-from .models import Category, Manga, Chapter, Page
+# USER
+@admin.register(User)
+class UserAdmin(admin.ModelAdmin):
+    list_display = ('username', 'email', 'is_seller', 'is_staff')
+    list_filter = ('is_seller',)
 
+    fieldsets = BaseUserAdmin.fieldsets + (
+        ('Roles de Usuario', {'fields': ('is_seller',)}),
+    )
+    add_fieldsets = BaseUserAdmin.add_fieldsets + (
+        ('Roles de Usuario', {'fields': ('is_seller',)}),
+    )
 
 # CATEGORY
 @admin.register(Category)

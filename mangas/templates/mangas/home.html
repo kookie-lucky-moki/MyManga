@@ -14,20 +14,21 @@ Home
 
     <div class="col-md-3 mb-4">
         <div class="card">
+            <div class="card h-100 shadow-sm hover-shadow transition">
+                <img src="{{ manga.cover.url }}" class="card-img-top">
 
-            <img
-                src="{{ manga.cover.url }}"
-                class="card-img-top"
-            >
+                <div class="card-body">
 
-            <div class="card-body">
+                    <h5>{{ manga.title }}</h5>
 
-                <h5>{{ manga.title }}</h5>
-
-                <a href="{{ manga.get_absolute_url }}" class="btn btn-primary">
-                    Leer
-                </a>
-
+                    {% if manga.author %}
+                        <p class="card-text text-muted small mb-3">Por: {{ manga.author }}</p>
+                    {% endif %}
+                    
+                    <a href="{{ manga.get_absolute_url }}" class="btn btn-primary">
+                        Leer
+                    </a>
+                </div>
             </div>
 
         </div>
@@ -37,5 +38,15 @@ Home
     {% endfor %}
 
 </div>
+
+<style>
+    .hover-shadow:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 .5rem 1rem rgba(0,0,0,.15)!important;
+    }
+    .transition {
+        transition: all 0.3s ease-in-out;
+    }
+</style>
 
 {% endblock %}

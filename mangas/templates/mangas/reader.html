@@ -1,23 +1,39 @@
 {% extends 'mangas/base.html' %}
 
 {% block content %}
+<div class="container my-4">
+    <div class="text-center mb-5">
+        <h1 class="h2 mb-1">{{ chapter.manga.title }}</h1>
+        <h2 class="h4 text-muted">{{ chapter.title }}</h2>
+        {% if chapter.manga.author %}
+            <p class="text-muted small">Por: {{ chapter.manga.author }}</p>
+        {% endif %}
+        <hr class="w-25 mx-auto">
+    </div>
 
-<h2>
-    {{ chapter.manga.title }}
-    - Capitulo {{ chapter.number }}
-</h2>
+    <div class="d-flex flex-column align-items-center">
+        {% for page in chapter.pages.all %}
+            <div class="manga-page-container mb-5 text-center">
+                
+                <img 
+                    src="{{ page.image.url }}" 
+                    class="img-fluid shadow-sm border rounded" 
+                    alt="Página {{ forloop.counter }}"
+                    style="max-height: 1200px; object-fit: contain;"
+                >
+                
+                <div class="mt-2">
+                    <span class="badge bg-dark px-3 py-2 fs-6">
+                        Página {{ forloop.counter }}
+                    </span>
+                </div>
 
-<div class="text-center">
-
-    {% for page in chapter.pages.all %}
-
-        <img
-            src="{{ page.image.url }}"
-            class="img-fluid mb-3"
-        >
-
-    {% endfor %}
-
+            </div>
+        {% empty %}
+            <div class="alert alert-warning text-center" role="alert">
+                Este capítulo aún no tiene páginas cargadas.
+            </div>
+        {% endfor %}
+    </div>
 </div>
-
 {% endblock %}
