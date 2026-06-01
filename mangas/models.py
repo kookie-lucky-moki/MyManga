@@ -12,7 +12,6 @@ class Category(models.Model):
     def __str__(self):
         return self.title
 
-
 # Modelo para crear/publicar mangas en el panel de administración
 class Manga(models.Model):
     category = models.ManyToManyField(
